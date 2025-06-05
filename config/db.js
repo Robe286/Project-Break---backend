@@ -6,7 +6,8 @@ const dbConnection = async () =>{
         await mongoose.connect(process.env.MONGO_URI)
         console.log('Conexión establecida con la BBDD')
     } catch (error) {
-        console.log(error)
+        console.log(error);
+        throw new Error ('Error a la hora de conectar con la BBDD');
     }
 }
 
