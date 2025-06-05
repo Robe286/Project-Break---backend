@@ -7,7 +7,7 @@ const dbConnection = async () =>{
         console.log('Conexión establecida con la BBDD')
     } catch (error) {
         console.log(error);
-        throw new Error ('Error a la hora de conectar con la BBDD');
+        throw new Error ('Error al conectar con la BBDD');
     }
 }
 
