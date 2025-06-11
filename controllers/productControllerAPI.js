@@ -1,16 +1,15 @@
-const express = require('express');
-const router = express.Router();
-const Product = require('../models/Product.js');
-const productController = require('../controllers/productController.js');
-
-// PUBLIC ROUTES
-
-router.get('/products', productController.showProducts);
-router.get('/products/:_id', productController.showProductById);
+router.get('/products/:_id', async (req, res) => {
+    try {
+        const product = await Product.findById(req.params._id);
+        res.status(201).send(product);
+    } catch (error) {
+        res
+        .status(500)
+        .send({message: 'There was a problem trying to get the product detail'});
+    }
+});
 
 // ADMIN ROUTES
-
-router.get('/dashboard/new', productController.showNewProduct);
 
 router.post('/dashboard', async (req, res) => {
     try {
@@ -34,6 +33,18 @@ router.get('/dashboard', async (req, res) => {
         .send({message: 'There was a problem trying to show the admin dashboard'});
     }
 });
+
+/* ---- Ruta para mostrar el formulario para subir un producto nuevo ----
+router.get('/dashboard/new', async (req, res) => {
+    try {
+        const uploadForm = await 
+    } catch (error) {
+        res
+        .status(500)
+        .send({message: 'There was a problem trying to show the upload product Form'})
+    }
+})
+*/
 
 router.get('/dashboard/:_id', async (req, res) => {
     try {
@@ -95,7 +106,3 @@ router.delete('/dashboard/:_id/delete', async (req, res) => {
         .send({message: 'There was a problem trying to delete de product'});
     }
 });
-
-router
-
-module.exports = router;
