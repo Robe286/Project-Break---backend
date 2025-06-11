@@ -1,4 +1,4 @@
-function getProductForm(validCategory, validSizes) {
+function getEditProductForm(product, validCategory, validSizes) {
     return `
         <!DOCTYPE html>
         <html lang="es">
@@ -10,37 +10,39 @@ function getProductForm(validCategory, validSizes) {
             </style>
             </head>
         <body>
-            <h1>Add New Product</h1>
-            <form action="/dashboard" method="POST">
+            <h1>Edit Product</h1>
+            <form action="/dashboard/${product._id}?_method=PUT" method="POST">
                 <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required/>
+                <input type="text" id="name" name="name" value="${product.name}" required/>
 
                 <label for="image">Image:</label>
-                <input type="text" id="image" name="image" required/>
+                <input type="text" id="image" name="image" value="${product.image || ''}" required/>
                 
                 <label for="description">Description:</label>
-                <textarea id="description" name="description" required>Add the product description</textarea>
+                <textarea id="description" name="description" required>${product.description || ''}</textarea>
                 
                 <label for="category">Category:</label>
                 <select id="category" name="category" required>
                     <option value="">-- Select Category --</option>
-                    ${validCategory.map(category => `<option value="${category}">${category}</option>`).join('')}
+                    ${validCategory.map(category => `
+                        <option value="${category}" ${category === product.category ? 'selected' : ''}>${category}</option>`).join('')}
                 </select>
                 
                 <label for="size">Size:</label>
                 <select id="size" name="size" required>
                     <option value="">-- Choose Size --</option>
-                    ${validSizes.map(size => `<option value="${size}">${size}</option>`).join('')}
+                    ${validSizes.map(size => `
+                        <option value="${size}" ${size === product.size ? 'selected' : ''}>${size}</option>`).join('')}
                 </select>
                 
                 <label for=""price>Price:</label>
-                <input type="number" id="price" name="price" min="0" step="0.01" required/>
+                <input type="number" id="price" name="price" min="0" step="0.01" value="${product.price || 0}" required/>
 
-                <button type="submit">Add Product</button>
+                <button type="submit">Update product</button>
             </form>
         </body>
         </html>
     `
 };
 
-module.exports = getProductForm;
+module.exports = getEditProductForm;

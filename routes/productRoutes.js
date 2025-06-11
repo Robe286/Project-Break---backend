@@ -10,92 +10,12 @@ router.get('/products/:_id', productController.showProductById);
 
 // ADMIN ROUTES
 
-router.get('/dashboard/new', productController.showNewProduct);
-
-router.post('/dashboard', async (req, res) => {
-    try {
-        const product = await Product.create({...req.body});
-        res.status(201).send(product);
-    } catch (error) {
-        res
-        .status(500)
-        .send({message: 'There was a problem trying to create te product'});
-    }
-});
-
-
-router.get('/dashboard', async (req, res) => {
-    try {
-        const products = await Product.find();
-        res.status(201).send(products);
-    } catch (error) {
-        res
-        .status(500)
-        .send({message: 'There was a problem trying to show the admin dashboard'});
-    }
-});
-
-router.get('/dashboard/:_id', async (req, res) => {
-    try {
-        const product = await Product.findById(req.params._id);
-        res.status(201).send(product);
-    } catch (error) {
-        res
-        .status(500)
-        .send({message: 'There was a problem trying to show the product detail in the admin dashboard'});
-    }
-});
-
-/* ---- Ruta para obtener el formulario de edición de un producto ya creado ----
-router.get('/dashboard/:_id/edit', async (req, res) => {
-    try {
-        const editForm = 
-    } catch (error) {
-        res
-        .status(500)
-        .send({message: 'There was a problem trying to show the edit product form'});
-    }
-});
-*/
-
-router.put('/dashboard/:_id', async (req, res) => {
-    try {
-        const product = await Product.findByIdAndUpdate(
-            req.params._id,
-            {
-                nombre: req.body.nombre,
-                descripcion: req.body.descripcion,
-                imagen: req.body.imagen,
-                categoria: req.body.categoria,
-                talla: req.body.talla,
-                precio: req.body.precio
-            });            
-        if (!product) {
-            return res.status(404).send({message: 'Product not found'})
-        };
-        res.status(200).send(product)
-
-    } catch (error) {
-        res
-        .status(500)
-        .send({message: 'There was a problem trying to update the product'});
-    }
-});
-
-router.delete('/dashboard/:_id/delete', async (req, res) => {
-    try {
-        const product = await Product.findByIdAndDelete(req.params._id)
-        if (!product) {
-            return res.status(404).send({message: 'Product not found'});
-        }
-        res.status(200).send({message: 'Delete was complete'});
-    } catch (error) {
-        res
-        .status(500)
-        .send({message: 'There was a problem trying to delete de product'});
-    }
-});
-
-router
+router.get('/dashboard', productController.showProducts);
+router.get('/dashboard/new', productController.showNewProduct); // Show the new product form
+router.post('/dashboard', productController.createProduct);
+router.get('/dashboard/:_id', productController.showProductById);
+router.get('/dashboard/:_id/edit', productController.showEditProduct); // Show the edit product form
+router.put('/dashboard/:_id', productController.updateProduct);
+router.delete('/dashboard/:_id/delete', productController.deleteProduct);
 
 module.exports = router;

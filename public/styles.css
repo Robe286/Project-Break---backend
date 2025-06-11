@@ -45,7 +45,7 @@ q:before, q:after {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
-    background-color: rgba(243, 230, 224, 1);
+    /*background-color: rgba(243, 230, 224, 1); rgba(248, 158, 36, 1)*/
 }
 
 /* End Reset */

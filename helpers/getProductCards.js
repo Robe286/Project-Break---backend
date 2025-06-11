@@ -1,5 +1,7 @@
 function getProductCards (products) {
     return `
+        <div>
+        </div>
         <div class="product-home">
             ${products.map(product => `
                 <div class="product-card"
