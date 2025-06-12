@@ -9,7 +9,9 @@ const getEditProductForm = require('../helpers/getEditProductForm.js');
 const productController = {
     async showProducts (req, res) {
         try {
-            const products = await Product.find();
+            const { category: category } = req.query;
+            const filter = category ? {category} : {};
+            const products = await Product.find(filter);
             const productCards = getProductCards(products);
             const html = baseHtml() + getNavBar() + productCards;
             res.send(html)
@@ -101,8 +103,7 @@ const productController = {
 
     async deleteProduct (req, res) {
         try {
-            const product = await Product.findByIdAndDelete(req.params._id)
-            console.log(product)
+            const product = await Product.findByIdAndDelete(req.params._id);
             if (!product) {
                 return res.status(404).send({message: 'Product not found'});
             }
