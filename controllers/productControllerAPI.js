@@ -1,13 +1,40 @@
-router.get('/products/:_id', async (req, res) => {
-    try {
+const Product = require('../models/Product');
+
+const controllerApi = {
+    async showProducts (req, res) {
+        try {
+        const product = await Product.find();
+        res.json(product);
+        } catch (error) {
+            res
+            .status(500)
+            .send({message: 'There was a problem trying to get the product detail'});
+        }
+    },
+    async showProductById (req, res) {
+        try {
         const product = await Product.findById(req.params._id);
-        res.status(201).send(product);
-    } catch (error) {
-        res
-        .status(500)
-        .send({message: 'There was a problem trying to get the product detail'});
+        res.json(product);
+        } catch (error) {
+            res
+            .status(500)
+            .send({message: 'There was a problem trying to get the product detail'});
+        }
+    },
+    async createProduct (req, res) {
+        try {
+        const product = await Product.create({...req.body});
+        res.json(product);
+        } catch (error) {
+            res
+            .status(500)
+            .send({message: 'There was a problem trying to create te product'});
+        }
     }
-});
+}
+module.exports = controllerApi;
+
+/*
 
 // ADMIN ROUTES
 
@@ -44,7 +71,7 @@ router.get('/dashboard/new', async (req, res) => {
         .send({message: 'There was a problem trying to show the upload product Form'})
     }
 })
-*/
+
 
 router.get('/dashboard/:_id', async (req, res) => {
     try {
@@ -67,7 +94,7 @@ router.get('/dashboard/:_id/edit', async (req, res) => {
         .send({message: 'There was a problem trying to show the edit product form'});
     }
 });
-*/
+
 
 router.put('/dashboard/:_id', async (req, res) => {
     try {
@@ -106,3 +133,5 @@ router.delete('/dashboard/:_id/delete', async (req, res) => {
         .send({message: 'There was a problem trying to delete de product'});
     }
 });
+
+*/
