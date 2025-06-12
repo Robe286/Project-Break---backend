@@ -3,13 +3,10 @@ const router = express.Router();
 const Product = require('../models/Product.js');
 const productController = require('../controllers/productController.js');
 
-// ROOT REDIRECT
-router.get('/', (req, res) => {
-  res.redirect('/products');
-});
 
 // PUBLIC ROUTES
 
+router.get('/', productController.showProducts);
 router.get('/products', productController.showProducts);
 router.get('/products/:_id', productController.showProductById);
 
