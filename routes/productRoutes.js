@@ -3,6 +3,11 @@ const router = express.Router();
 const Product = require('../models/Product.js');
 const productController = require('../controllers/productController.js');
 
+// ROOT REDIRECT
+router.get('/', (req, res) => {
+  res.redirect('/products');
+});
+
 // PUBLIC ROUTES
 
 router.get('/products', productController.showProducts);
