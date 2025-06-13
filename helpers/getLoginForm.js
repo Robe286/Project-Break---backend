@@ -1,6 +1,6 @@
-function getProductForm(validCategory, validSizes, adminAuth) {
+function getLoginForm (adminAuth) {
     return `
-        <!DOCTYPE html>
+    <!DOCTYPE html>
         <html lang="es">
         <head>
         <meta charset="UTF-8">
@@ -59,37 +59,18 @@ function getProductForm(validCategory, validSizes, adminAuth) {
             </div>
         </header>
         <body>
-            <h1 style="color: rgba(248, 158, 36, 1)">Add New Products</h1>
-            <form action="/dashboard" method="POST">
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" placeholder="Choose a name" required/>
-
-                <label for="image">Image</label>
-                <input type="text" id="image" name="image" placeholder="Add the image" required/>
-                
-                <label for="description">Description</label>
-                <textarea id="description" name="description" placeholder="Add the product description" required></textarea>
-                
-                <label for="category">Category</label>
-                <select id="category" name="category" required>
-                    <option value="">Select Category</option>
-                    ${validCategory.map(category => `<option value="${category}">${category}</option>`).join('')}
-                </select>
-                
-                <label for="size">Size</label>
-                <select id="size" name="size" required>
-                    <option value="">Choose Size</option>
-                    ${validSizes.map(size => `<option value="${size}">${size}</option>`).join('')}
-                </select>
-                
-                <label for=""price>Price</label>
-                <input type="number" id="price" name="price" min="0" step="0.01" placeholder="Choose a price" required/>
-
-                <button type="submit">Add Product</button>
-            </form>
+            <div class="admin-auth">
+                <h1>Autenticación</h1>
+                <form method="POST" action="/login">
+                    <label for="user">Usuario</label>
+                    <input type="text" name="user" required>
+                    <label for="password">Contraseña</label>
+                    <input type="password" name="password" required>
+                    <button>Iniciar Sesión</button>
+                </form>
+            </div>
         </body>
         </html>
     `
-};
-
-module.exports = getProductForm;
+}
+module.exports = getLoginForm;

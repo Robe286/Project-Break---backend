@@ -65,7 +65,8 @@ const productController = {
 
     showNewProduct (req, res) {
         try {
-            const addProductForm = getProductForm(Product.validCategory, Product.validSizes);
+            const adminAuth = urlFromDashboard(req);
+            const addProductForm = getProductForm(Product.validCategory, Product.validSizes, adminAuth);
             res.send(addProductForm);
 
         } catch (error) {

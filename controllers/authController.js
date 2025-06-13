@@ -1,18 +1,11 @@
+const getLoginForm = require('../helpers/getLoginForm.js');
+const urlFromDashboard = (req) => req.originalUrl.startsWith('/dashboard');
+
 require('dotenv').config();
 
 const showLoginForm = (req, res) => {
-    const form = `
-    <div class="admin-auth">
-        <h1>Autenticación</h1>
-        <form method="POST" action="/login">
-            <label for="user">Usuario</label>
-            <input type="text" name="user" required>
-            <label for="password">Contraseña</label>
-            <input type="password" name="password" required>
-            <button>Iniciar Sesión</button>
-        </form>
-    </div>
-    `
+    const adminAuth = urlFromDashboard(req);
+    const form = getLoginForm(adminAuth);
     res.send(form);
 };
 
