@@ -70,21 +70,3 @@ const controllerApi = {
     }
 }
 module.exports = controllerApi;
-
-/*
-
-router.delete('/dashboard/:_id/delete', async (req, res) => {
-    try {
-        const product = await Product.findByIdAndDelete(req.params._id)
-        if (!product) {
-            return res.status(404).send({message: 'Product not found'});
-        }
-        res.status(200).send({message: 'Delete was complete'});
-    } catch (error) {
-        res
-        .status(500)
-        .send({message: 'There was a problem trying to delete de product'});
-    }
-});
-
-*/

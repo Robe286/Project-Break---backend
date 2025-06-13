@@ -82,7 +82,8 @@ const productController = {
             if(!product) {
                 return res.status(404).send({message: 'New product not found'});
             }
-            const editProductForm = getEditProductForm(product, Product.validCategory, Product.validSizes);
+            const adminAuth = urlFromDashboard(req);
+            const editProductForm = getEditProductForm(product, Product.validCategory, Product.validSizes, adminAuth);
             res.send(editProductForm);
 
         } catch (error) {

@@ -30,12 +30,3 @@ function getProductDetail(product, adminAuth) {
 }
 
 module.exports = getProductDetail;
-
-/*
-    name: {type: String, required: true},
-    description: {type: String},
-    image: {type: String},
-    category: {type: String, enum: validCategory},
-    size: {type: String, enum: validSizes},
-    price: {type: Number, min: 0}
-*/
