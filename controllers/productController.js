@@ -17,7 +17,7 @@ const productController = {
             const products = await Product.find(filter);
             const adminAuth = urlFromDashboard(req);
             const productCards = getProductCards(products, adminAuth);
-            const html = baseHtml() + getNavBar() + productCards;
+            const html = baseHtml() + getNavBar(adminAuth) + productCards;
             res.send(html)
 
         } catch (error) {

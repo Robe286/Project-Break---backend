@@ -1,4 +1,4 @@
-function getNavBar() {
+function getNavBar(adminAuth) {
     return `
     <header>
         <nav>
@@ -9,6 +9,7 @@ function getNavBar() {
             <a href="/products?category=zapatos">Zapatos</a>
             <a href="/products?category=accesorios">Accesorios</a>
             <a href="/login">Login</a>
+            ${adminAuth ? '<a href="/logout">Logout</a>' : ''}
         </nav>
     </header>
     `
