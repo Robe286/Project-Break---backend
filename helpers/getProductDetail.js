@@ -1,4 +1,4 @@
-function getProductDetail(product) {
+function getProductDetail(product, adminAuth) {
     return `
         <div class="fresh-logo">
             <a href="/products">
@@ -15,12 +15,14 @@ function getProductDetail(product) {
                 <p><strong>Size:</strong> ${product.size}</p>
                 <p><strong>Price:</strong> ${product.price}€</p>
             </div>
-            <div class="admin-actions">
+            ${adminAuth ? `
+                <div class="admin-actions">
                 <a href="/dashboard/${product._id}/edit">Editar producto</a>
                 <form action="/dashboard/${product._id}/delete?_method=DELETE" method="POST">
                     <button type="submit">Eliminar</button>
                 </form>
-            </div>
+            </div>    
+            ` : ''}
         </div>
     </body>
     </html>

@@ -3,8 +3,11 @@ const baseHtml = require('../helpers/baseHtml.js');
 const getNavBar = require('../helpers/getNavBar.js');
 const getProductCards = require('../helpers/getProductCards.js');
 const getProductDetail = require('../helpers/getProductDetail.js');
+
 const getProductForm = require('../helpers/getProductForm.js');
 const getEditProductForm = require('../helpers/getEditProductForm.js');
+
+const urlFromDashboard = (req) => req.originalUrl.startsWith('/dashboard');
 
 const productController = {
     async showProducts (req, res) {
@@ -12,7 +15,8 @@ const productController = {
             const { category: category } = req.query;
             const filter = category ? {category} : {};
             const products = await Product.find(filter);
-            const productCards = getProductCards(products);
+            const adminAuth = urlFromDashboard(req);
+            const productCards = getProductCards(products, adminAuth);
             const html = baseHtml() + getNavBar() + productCards;
             res.send(html)
 
@@ -30,7 +34,8 @@ const productController = {
             if(!product) {
                 return res.status(404).send({message: 'Product not found'})
             }
-            const productDetail = getProductDetail(product);
+            const adminAuth = urlFromDashboard(req);
+            const productDetail = getProductDetail(product, adminAuth);
             const html = baseHtml() + productDetail;
             res.send(html);
 

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const Product = require('../models/Product.js');
 const productController = require('../controllers/productController.js');
+const authentication = require('../middlewares/authMiddleware.js');
 
 
 // PUBLIC ROUTES
@@ -12,12 +12,12 @@ router.get('/products/:_id', productController.showProductById);
 
 // ADMIN ROUTES
 
-router.get('/dashboard', productController.showProducts);
-router.get('/dashboard/new', productController.showNewProduct); // Show the new product form
-router.post('/dashboard', productController.createProduct);
-router.get('/dashboard/:_id', productController.showProductById);
-router.get('/dashboard/:_id/edit', productController.showEditProduct); // Show the edit product form
-router.put('/dashboard/:_id', productController.updateProduct);
-router.delete('/dashboard/:_id/delete', productController.deleteProduct);
+router.get('/dashboard', authentication, productController.showProducts);
+router.get('/dashboard/new', authentication, productController.showNewProduct); // Show the new product form
+router.post('/dashboard', authentication, productController.createProduct);
+router.get('/dashboard/:_id', authentication, productController.showProductById);
+router.get('/dashboard/:_id/edit', authentication, productController.showEditProduct); // Show the edit product form
+router.put('/dashboard/:_id', authentication, productController.updateProduct);
+router.delete('/dashboard/:_id/delete', authentication, productController.deleteProduct);
 
 module.exports = router;
