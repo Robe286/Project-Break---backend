@@ -15,7 +15,9 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 app.use(methodOverride('_method'));
-/*
+
+// Eliminar _method del req.body
+
 app.use(methodOverride((req, res) => {
   if (req.body && typeof req.body === 'object' && '_method' in req.body) {
     const method = req.body._method;
@@ -24,9 +26,9 @@ app.use(methodOverride((req, res) => {
   }
   return null;
 }));
-*/
+
 app.use(session({
-    secret: 'mi-clave-secreta',
+    secret: process.env.SESSION_SECRET || 'mi-clave-secreta',
     resave: false,
     saveUninitialized: false
 }))
