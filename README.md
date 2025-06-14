@@ -18,15 +18,16 @@ Esta aplicación web rebosa frescura!. Se ha desarrollado para que pueda ser ges
 - Vistas diferenciadas y orientadas a usuarios y administradores.
 - Conexión automática y generación de persistencia con MongoDB Atlas.
 - Funcionalidades para la gestión del Stock. Puedes crear nuevos productos, modificarlos o eliminarlos.
+- Interpretación de login. Dashboard de gestión de contenido para administradores.
 
+## Tecnologías usadas
 
-- 🔐 Sistema de autenticación para acceder al dashboard.
-- 🧾 API REST pública y privada (requiere autenticación).
-- ☁️ Subida de imágenes a Cloudinary.
-- 🧪 Tests con Jest y Supertest.
-- 📚 Documentación Swagger.
-
----
+- Node.js
+- Express
+- Dotenv
+- Mongoose + MongoDB
+- Cloudinary
+- SSR de HTML y estilos CSS
 
 ## 📦 Instalación
 
@@ -50,9 +51,37 @@ npm install
 
 Necesitarás solicitar las variables de entorno. En cualquier caso debes crear un archivo `.env` y ubicarlo en la raíz del proyecto. Debería contener las siguientes variables:
 
-MONGO_URI=
-ADMIN_USER=
-ADMIN_PASSWORD=
+MONGO_URI =
+ADMIN_USER =
+ADMIN_KEY = 
+SESSION_SECRET =
 
 ## Inicio de la aplicación
 
+La aplicación se iniciará en http://localhost:3000, utilizando el comando de node:
+
+```Bash
+npm start
+```
+
+## Uso como administrador de las rutas protegidas (Dashboard)
+
+1. Accede a la ruta `/login`.
+2. Introduce el usuario y la contraseña definidas en el archivo `.env`:
+    - ADMIN_USER
+    - ADMIN_KEY
+3. Además de ver todos los productos, después de la autenticación tendrás la posibilidad de añadir productos nuevos, modificar los ya existentes e incluso eliminarlos.
+
+## Uso de la API REST
+
+Estas son las rutas definidas para poder acceder a los productos y sus detalles. Podrás consumirlos accediendo a las siguientes rutas:
+
+END POINT : http://localhost:3000
+
+Completar el end point para obtener los datos:
+
+- Obtener todos los productos: `/api/products` ---> GET
+- Para obtener los datos de un producto: `/api/products/:_id` ----> GET
+- Añadir un producto nuevo (con autenticación): `/api/products` ---> POST
+- Modificar un producto (con autenticación): `/api/products/:_id` ---> PUT
+- Eliminar un producto(con autenticación): `/api/products/:id` ---> DELETE

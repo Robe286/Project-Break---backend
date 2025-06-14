@@ -16,7 +16,7 @@ app.use(express.urlencoded({extended: true}));
 
 app.use(methodOverride('_method'));
 
-// Eliminar _method del req.body. Evitar interferir con el manejo posterior del cuerpo
+// Eliminar _method del req.body. Evita interferir con el manejo posterior del cuerpo
 
 app.use(methodOverride((req, res) => {
   if (req.body && typeof req.body === 'object' && '_method' in req.body) {

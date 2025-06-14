@@ -49,18 +49,11 @@ const productController = {
 
     async createProduct (req, res) {
         try {
-            const { name, description, category, size, price } = req.body;
-            const image = req.file.path;
-            const newProduct = new Product({
-                name,
-                description,
-                image,
-                category,
-                size,
-                price
-            });
-            await newProduct.create();
-            res.redirect('/dashboard');
+            const product = await Product.create({...req.body});
+            if(!product) {
+                return res.status(404).send({message: 'New product not found'});
+            }
+            res.redirect('/dashboard')
 
         } catch (error) {
             console.error(error);
